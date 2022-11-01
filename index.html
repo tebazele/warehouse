@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Warehouse Manager</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/6.9.96/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+    <header class="container-fluid">
+        <section class="row p-3 bg-dark ">
+            <div class="col-12">
+                <h1 class="text-light">Program: Warehouse Manager</h1>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-success" onclick="guessPackage()">I know the missing package</button>
+            </div>
+        </section>
+        <!-- place navbar here -->
+    </header>
+    <main class="container-fluid bg-dark bg-image">
+        <section class="row p-3 text-light">
+            <div class="col-1">
+                <h2>FILTER:</h2>
+            </div>
+            <div class="col-1">
+                <button class="btn btn-outline-light" onclick="heavyPackages()">Heavy (5+ lbs)</button>
+            </div>
+            <!-- <div class="col-1">
+                <button class="btn btn-outline-light" onclick="priorityPackages()">Priority</button>
+            </div> -->
+            <div class="dropdown col-1">
+                <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Priority
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" onclick="priorityPackages('express')">Express</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="priorityPackages('standard')">Standard</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="priorityPackages('free')">Free</a></li>
+                </ul>
+            </div>
+            <div class="col-1">
+                <button class="btn btn-outline-light" onclick="fragilePackages()">Fragile</button>
+            </div>
+            <div class="col-1">
+                <button class="btn btn-outline-light" onclick="drawAllPackages()">All Packages</button>
+            </div>
+            <div class="col-4 text-end text-light m-2">
+                <h3 class="m-2" id="clue-elem">Which package is missing?</h3>
+                <button class="btn btn-primary" onclick="getClue()">Get Clue</button>
+            </div>
+
+        </section>
+        <section class="row p-5" id="package-section">
+            <div class="col-12 text-light">
+                <h1>Packages</h1>
+            </div>
+        </section>
+
+    </main>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
+    <script src="/main.js"></script>
+</body>
+
+</html>
