@@ -4,7 +4,8 @@ const packages = [{
     isFragile: false,
     weight: 2,
     to: 'Sir Harrington IV',
-    trackingNumber: '1324kjs'
+    trackingNumber: '1324kjs',
+    id: "sir-harr"
 },
 {
     pic: '2.png',
@@ -12,7 +13,8 @@ const packages = [{
     isFragile: true,
     weight: .5,
     to: 'Master Mercutio',
-    trackingNumber: '1325sdk'
+    trackingNumber: '1325sdk',
+    id: "master-m"
 },
 {
     pic: '3.png',
@@ -20,7 +22,8 @@ const packages = [{
     isFragile: true,
     weight: .5,
     to: 'Mistress Ravenfeather',
-    trackingNumber: 'jffd147'
+    trackingNumber: 'jffd147',
+    id: "mis-rav"
 },
 {
     pic: '1.png',
@@ -28,7 +31,8 @@ const packages = [{
     isFragile: false,
     weight: 4,
     to: 'B. Robert Brown',
-    trackingNumber: 'acdc145'
+    trackingNumber: 'acdc145',
+    id: "b-robert"
 },
 {
     pic: '2.png',
@@ -36,7 +40,8 @@ const packages = [{
     isFragile: true,
     weight: 6,
     to: 'Chancellor Wallace',
-    trackingNumber: '994latb'
+    trackingNumber: '994latb',
+    id: "chan-wal"
 },
 {
     pic: '3.png',
@@ -44,7 +49,8 @@ const packages = [{
     isFragile: false,
     weight: 5,
     to: 'Sarah Sharm',
-    trackingNumber: '8081baz'
+    trackingNumber: '8081baz',
+    id: "sar-sharm"
 },
 {
     pic: '1.png',
@@ -52,7 +58,8 @@ const packages = [{
     isFragile: true,
     weight: 12,
     to: 'Tae Lien',
-    trackingNumber: 'suz2367'
+    trackingNumber: 'suz2367',
+    id: "tae-lie"
 }]
 
 //console.log('js loaded')
@@ -79,14 +86,20 @@ function priorityPackages(type) {
         let freeArray = packages.filter(package => package.priorityLevel == 'free');
         priorityArray = freeArray;
     }
-    //console.log(priorityArray);
+    console.log(priorityArray);
     drawPackages(priorityArray);
 }
 
 function fragilePackages() {
     let fragilePackages = packages.filter(package => package.isFragile == true);
-    //console.log(fragilePackages);
+    console.log(fragilePackages);
     drawPackages(fragilePackages);
+}
+
+function sortByWeight() {
+    packages.sort((p1, p2) => p1.weight - p2.weight);
+    //console.log(packages);
+    drawPackages(packages);
 }
 
 // SECTION game logic
@@ -117,24 +130,71 @@ function getClue() {
             break;
         case 'isFragile':
             console.log('isFragile was selected')
-            clueElem.innerHTML = `The missing package is fragile: ${missingPackage['isFragile']}.`;
+            clueElem.innerHTML = `The missing package is ${missingPackage.isFragile ? 'fragile' : 'not fragile'}`;
             break;
 
     }
 }
 
-function guessPackage() {
-    let guess = window.prompt('Who is the missing package for?');
-    console.log(guess);
+// function guessPackage() {
+//     let guess = window.confirm('Ready to guess which package is missing');
+//     console.log(guess);
 
+//     let missingPackage = packages.find(package => package.trackingNumber == 'missing');
+
+//     if (guess == missingPackage.to) {
+//         window.alert('You found the missing package!');
+//     } else {
+//         window.alert('Nope, guess again!');
+//         getClue()
+//     }
+
+// }
+
+function selectPackage() {
+    drawAllPackages();
+    let sirHarr = document.getElementById('sir-harr');
+    let masterM = document.getElementById('master-m');
+    let misRav = document.getElementById('mis-rav');
+    let bRobert = document.getElementById('b-robert');
+    let chanWal = document.getElementById('chan-wal');
+    let sarSharm = document.getElementById('sar-sharm');
+    let taeLie = document.getElementById('tae-lie');
+
+    // console.log("SirHarr:" + sirHarr);
+    // console.log(masterM);
+    // console.log(misRav);
+    // console.log(bRobert);
+    // console.log(chanWal);
+    // console.log(sarSharm);
+    // console.log(taeLie);
+    let yesOrNo = window.confirm('Ready to guess which package is missing? \nClick the package to submit your guess.');
+
+    if (yesOrNo) {
+
+        sirHarr.addEventListener("click", compareGuess, { once: true });
+        masterM.addEventListener("click", compareGuess, { once: true });
+        misRav.addEventListener("click", compareGuess, { once: true });
+        bRobert.addEventListener("click", compareGuess, { once: true });
+        chanWal.addEventListener("click", compareGuess, { once: true });
+        sarSharm.addEventListener("click", compareGuess, { once: true });
+        taeLie.addEventListener("click", compareGuess, { once: true });
+    }
+}
+
+function compareGuess() {
     let missingPackage = packages.find(package => package.trackingNumber == 'missing');
 
-    if (guess == missingPackage.to) {
-        window.alert('You found the missing package!');
+    let guessPackage = event.target;
+
+    if (missingPackage.id == guessPackage.id) {
+        console.log(guessPackage.id)
+        window.alert('Nice job! You found the missing package.')
     } else {
-        window.alert('Nope, guess again!');
-        getClue()
+        window.alert('Nope. Try again!');
+        getClue();
     }
+
 
 }
 
@@ -148,9 +208,9 @@ function drawPackages(packagesArray) {
     packagesArray.forEach(package => {
 
         template +=
-            `<div class="col-2 card p-2 m-5 bg-dark">
-                <h4 class="text-light text-center">To: ${package.to}</h4>
-                <img src="${package.pic}">
+            `<div class="col-md-2 col-10 card p-2 m-5 bg-dark">
+            <h4 class="text-light text-center">To: ${package.to}</h4>
+            <img src="${package.pic}" id="${package.id}">
             </div>`;
     })
 
